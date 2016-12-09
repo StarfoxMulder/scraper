@@ -11,6 +11,30 @@ $.getJSON("/vigilantcitizen", function(data) {
     $("#articleContainer").append("<p data-id='"+data[i]._id+"'><a href='"+data[i].link+"'>"+data[i].title+"</a></p>")
   }
 });
+// Above Top Secret ajax
+$.getJSON("/abovetopsecret", function(data) {
+  for (var i = 0; i < data.length; i++) {
+    $("#articleContainer").append("<p data-id='"+data[i]._id+"'><a href='"+data[i].link+"'>"+data[i].title+"</a></p>")
+  }
+});
+// Cryptomundo ajax
+$.getJSON("/cryptomundo", function(data) {
+  for (var i = 0; i < data.length; i++) {
+    $("#articleContainer").append("<p data-id='"+data[i]._id+"'><a href='"+data[i].link+"'>"+data[i].title+"</a></p>")
+  }
+});
+// Paranormal News ajax
+$.getJSON("/paranormalnews", function(data) {
+  for (var i = 0; i < data.length; i++) {
+    $("#articleContainer").append("<p data-id='"+data[i]._id+"'><a href='"+data[i].link+"'>"+data[i].title+"</a></p>")
+  }
+});
+// David Icke ajax
+$.getJSON("/davidicke", function(data) {
+  for (var i = 0; i < data.length; i++) {
+    $("#articleContainer").append("<p data-id='"+data[i]._id+"'><a href='"+data[i].link+"'>"+data[i].title+"</a></p>")
+  }
+});
 
 // function getArticles() {
 //   $("#articleContainer").empty();

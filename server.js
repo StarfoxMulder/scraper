@@ -258,6 +258,9 @@ app.get("/articles", function(req, res) {
   })
 });
 
+app.get("/", function(req, res) {
+  res.send(index.html);
+});
 // Testing basic format with vc MVC
 app.get("/vigilantcitizen", function(req, res){
   Article.find({"source":vc}, function(err, found){
@@ -266,10 +269,58 @@ app.get("/vigilantcitizen", function(req, res){
     } else {
       console.log(found);
       res.json(found);
-      res.send(vc.html);
+      res.send(index.html);
     }
   })
-})
+});
+// Above Top Secret ajax
+app.get("/abovetopsecret", function(req, res){
+  Article.find({"source":ats}, function(err, found){
+    if(err) {
+      console.log(err);
+    } else {
+      console.log(found);
+      res.json(found);
+      res.send(index.html);
+    }
+  })
+});
+// Cryptomundo ajax
+app.get("/cryptomundo", function(req, res){
+  Article.find({"source":cm}, function(err, found){
+    if(err) {
+      console.log(err);
+    } else {
+      console.log(found);
+      res.json(found);
+      res.send(index.html);
+    }
+  })
+});
+// Paranormal News ajax
+app.get("/paranormalnews", function(req, res){
+  Article.find({"source":pn}, function(err, found){
+    if(err) {
+      console.log(err);
+    } else {
+      console.log(found);
+      res.json(found);
+      res.send(index.html);
+    }
+  })
+});
+// David Icke ajax
+app.get("/davidicke", function(req, res){
+  Article.find({"source":di}, function(err, found){
+    if(err) {
+      console.log(err);
+    } else {
+      console.log(found);
+      res.json(found);
+      res.send(index.html);
+    }
+  })
+});
 
 // This will grab an article by it's ObjectId
 app.get("/articles/:id", function(req, res) {
