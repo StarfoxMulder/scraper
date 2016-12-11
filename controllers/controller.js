@@ -1,3 +1,17 @@
+// var express = require('express');
+// var router = express.Router();
+
+// var mongoose = require("mongoose");
+
+// var Note = require("./models/Note.js");
+// var Article = require("./models/Article.js");
+
+// var request = require("request");
+// var cheerio = require("cheerio");
+
+
+/* vc.html
+///////////////////////////////
 <!DOCTYPE html>
 <html lang="en-us">
   <head>
@@ -55,3 +69,4 @@
     <script src="app.js"></script>
   </body>
 </html>
+*/

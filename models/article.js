@@ -13,7 +13,7 @@ var ArticleSchema = new Schema({
     type: String,
     required: true
   },
-  author: {
+  image: {
     type: String,
     required: false
   },
