@@ -1,13 +1,33 @@
 
 body {
-  background-color: #FFA2A7;
+  background-image: url('/assets/images/maxresdefault2.jpg');
+  background-size: cover;
+  background-color: #D2EEFF;
 }
-#wrapper {
+header {
+  background-color: #9499CC;
+  padding-top: 2px;
+}
+/*#wrapper {
   width: 960px;
   margin-left: auto;
   margin-right: auto;
   padding-top: 5%;
+}*/
+h1 {
+  font-family: 'Aguafina Script', cursive;
+  color: #43697F;
+  letter-spacing: 5px;
 }
+p {
+  font-family: 'Alegreya Sans', sans-serif;
+  font-size: 17px;
+}
+a {
+  font-family: 'PT Sans', sans-serif;
+  font-size: 20px;
+}
+
 #articles {
   display: inline-block;
   overflow: auto;
