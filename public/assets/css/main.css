@@ -2,11 +2,14 @@
 body {
   background-image: url('/assets/images/maxresdefault2.jpg');
   background-size: cover;
-  background-color: #D2EEFF;
+  /*background-color: #D2EEFF;*/
+  background-repeat: no-repeat;
+  background-attachment: fixed;
 }
 header {
   background-color: #9499CC;
   padding-top: 2px;
+  width: 100%;
 }
 /*#wrapper {
   width: 960px;
@@ -17,7 +20,8 @@ header {
 h1 {
   font-family: 'Aguafina Script', cursive;
   color: #43697F;
-  letter-spacing: 5px;
+  letter-spacing: 7px;
+  margin-left: 5%;
 }
 p {
   font-family: 'Alegreya Sans', sans-serif;
@@ -31,23 +35,22 @@ a {
 #articles {
   display: inline-block;
   overflow: auto;
-  width: 60%;
-  height: 700px;
+  border: 1px solid black;
+}
+.media-object {
+  height: 64px;
+  width: 64px;
 }
 #notes {
-  float: right;
-  width: 30%;
-}
-textarea, input {
-  display: block;
-  width: 100%;
-  background-color: #FCF5C7;
-}
-input {
-  height: 36px;
-  font-size: 24px;
+  border: 1px solid green;
 }
 textarea {
+  display: block;
+  background-color: #FCF5C7;
+}
+
+/*textarea {
   height: 200px;
   font-size: 18px;
 }
+*/

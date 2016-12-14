@@ -33,7 +33,7 @@ $("#articles").append("<div class='media'><div class='media-left'><img class='me
     </button>
   </div>
 </div>
-/*
+*/
 
 // // Above Top Secret ajax
 // $.getJSON("/abovetopsecret", function(data) {

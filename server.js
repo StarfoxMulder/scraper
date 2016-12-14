@@ -68,14 +68,13 @@ app.get("/", function(req, res) {
 // Testing basic format with vc MVC
 app.get("/vigilantcitizen", function(req, res){
 
-  Article.find()
-  .sort({scrapeDate:-1})
-  .exec(function(err, found){
+  Article.find({}, function(err, found){
     if(err) {
       console.log("Ghostbusters: "+err);
     } else {
       console.log("Ghostbusters");
-      res.render("index",{found});
+      res.render("index",{found : found});
+      // res.json(found);
     }
   });
 
@@ -134,7 +133,7 @@ function scrape() {
 
       result.title = $(this).children("a").attr("title");
       result.link = $(this).children("a").attr("href");
-      result.image = $(this).children("a img").attr("src");
+      result.image = $(this).children("a").children("img").attr("src");
       result.source = vc;
       result.scrapeDate = Date.now();
 
@@ -229,7 +228,7 @@ function scrape() {
 
       result.title = $(this).children("a").text();
       result.link = $(this).children("a").attr("href");
-      result.image = $(this).children("a img").attr("src");
+      result.image = $(this).children("a").children("img").attr("src");
       result.source = pn;
 
       var entry = new Article(result);
@@ -260,7 +259,7 @@ function scrape() {
 
       result.title = $(this).children("a").text();
       result.link = $(this).children("a").attr("href");
-      result.image = $(this).children("a img").attr("src");
+      result.image = $(this).children("a").children("img").attr("src");
       result.source = di;
 
       var entry = new Article(result);
