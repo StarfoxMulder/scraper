@@ -68,7 +68,7 @@ app.get("/", function(req, res) {
 // Testing basic format with vc MVC
 app.get("/vigilantcitizen", function(req, res){
 
-  Article.find().sort({ scrapeDate: -1}, function(err, found){
+  Article.find().sort({"scrapeDate":-1}).exec( function(err, found){
     if(err) {
       console.log("Ghostbusters: "+err);
     } else {
@@ -85,7 +85,7 @@ app.get("/vigilantcitizen", function(req, res){
 // This will grab an article by it's ObjectId
 app.get("/vigilantcitizen/:id", function(req, res) {
 
-  Article.findOne({"_id": req.params.id}).populate("notes").exec(function(err, notes){
+  Article.findOne({"_id": req.params.id}).populate("note").exec(function(err, notes){
       if(err) {
         console.log("GET /:id err");
         res.send(err);
@@ -98,18 +98,20 @@ app.get("/vigilantcitizen/:id", function(req, res) {
 });
 // Create a new note or replace an existing note
 app.post("/vigilantcitizen/:id", function(req, res) {
-
+  // console.log(res);
   var newNote = new Note(req.body);
   // save the new note that gets posted to the Notes collection
   newNote.save(function(err, notes){
     if(err) {
       console.log("POST /:id err");
     } else {
-      Article.findOneAndUpdate({"_id": req.params.id}, {"note":doc._id})
+      Article.findOneAndUpdate({"_id": req.params.id}, {"notes": notes._id})
       .exec(function(err, notes){
         if(err) {
-          console.log("POST /:id db res err");
+          console.log("ELSE Post",err);
+          console.log("sdkfjaksldhf jasjd");
         } else {
+          console.log("ELSE ELSE Post Notes: ",notes);
           res.redirect("/vigilantcitizen")
         }
       });
@@ -144,10 +146,10 @@ function scrape() {
       entry.save(function(err, doc) {
 
         if (err) {
-          console.log("turn on vc err");
+          // console.log("turn on vc err");
         }
         else {
-          console.log("vc worked");
+          // console.log("vc worked");
         }
       });
     });
@@ -175,10 +177,10 @@ function scrape() {
       entry.save(function(err, doc) {
 
         if (err) {
-          console.log("turn on ats err");
+          // console.log("turn on ats err");
         }
         else {
-          console.log("ats worked");
+          // console.log("ats worked");
         }
       });
     });
@@ -207,10 +209,10 @@ function scrape() {
       entry.save(function(err, doc) {
 
         if (err) {
-          console.log("turn on cm err");
+          // console.log("turn on cm err");
         }
         else {
-          console.log("cm worked");
+          // console.log("cm worked");
         }
       });
     });
@@ -238,10 +240,10 @@ function scrape() {
       entry.save(function(err, doc) {
 
         if (err) {
-          console.log("turn on pn err");
+          // console.log("turn on pn err");
         }
         else {
-          console.log("pn worked");
+          // console.log("pn worked");
         }
       });
     });
@@ -259,7 +261,7 @@ function scrape() {
 
       result.title = $(this).children("a").text();
       result.link = $(this).children("a").attr("href");
-      result.image = $(this).children("a").children("img").attr("src");
+      result.image = "http://cdn.images.express.co.uk/img/dynamic/1/285x214/211408_1.jpg";
       result.source = di;
 
       var entry = new Article(result);
@@ -269,10 +271,10 @@ function scrape() {
       entry.save(function(err, doc) {
 
         if (err) {
-          console.log("turn on di err");
+          // console.log("turn on di err");
         }
         else {
-          console.log("di worked");
+          // console.log("di worked");
         }
       });
     });

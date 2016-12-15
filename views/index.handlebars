@@ -59,32 +59,10 @@
             <label for="noteBody">Leave a Note</label>
             <textarea id="noteBody" class="form-control" rows="4"></textarea>
           </div>
-          <button id="submitNote" type="submit" class="btn btn-info" data-id="hold">Submit</button>
+          <button id="submitNote" type="submit" class="btn btn-info" data-id="584cfa39b63c05329870b22a">Submit</button>
         </form>
         <div id="notesContainer">
-          <ul>
-          {{#each notes}}
-            <li class="note">
-              <div class='media'>
-                <div class='media-body'>
-                  <h5 class='noteText'>{{this.body}}</h5>
-                </div>
-                <div class='media-right'>
-                  <button type='button' class='btn btn-danger btn-sm' data-id='{{this._id}}'>
-                  <span class='glyphicon glyphicon-remove' aria-hidden='true'></span>
-                  </button>
-                </div>
-              </div>
-            </li>
-          {{else}}
-            <li class="note">
-              <div class='media'>
-                <div class='media-body'>
-                  <h5 class='noteText'>Be the first to comment on this article!</h5>
-                </div>
-              </div>
-            </li>
-          {{/each}}
+          <ul id="notesUL">
           </ul>
         </div>
       </div>
