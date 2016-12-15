@@ -3,7 +3,7 @@ var Schema = mongoose.Schema;
 
 // Create schema for Note
 var NoteSchema = new Schema({
-
+  // should I name this 'text' or something other than 'body'?
   body: {
     type: String,
     trim: true,

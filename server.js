@@ -68,7 +68,7 @@ app.get("/", function(req, res) {
 // Testing basic format with vc MVC
 app.get("/vigilantcitizen", function(req, res){
 
-  Article.find({}, function(err, found){
+  Article.find().sort({ scrapeDate: -1}, function(err, found){
     if(err) {
       console.log("Ghostbusters: "+err);
     } else {
@@ -85,13 +85,13 @@ app.get("/vigilantcitizen", function(req, res){
 // This will grab an article by it's ObjectId
 app.get("/vigilantcitizen/:id", function(req, res) {
 
-  Article.findOne({"_id": req.params.id}).populate("notes").exec(function(err, found){
+  Article.findOne({"_id": req.params.id}).populate("notes").exec(function(err, notes){
       if(err) {
         console.log("GET /:id err");
         res.send(err);
       } else {
         console.log("GET /:id found");
-        res.json(found);
+        res.render("index",{notes});
       }
   });
 
@@ -101,16 +101,16 @@ app.post("/vigilantcitizen/:id", function(req, res) {
 
   var newNote = new Note(req.body);
   // save the new note that gets posted to the Notes collection
-  newNote.save(function(err, doc){
+  newNote.save(function(err, notes){
     if(err) {
       console.log("POST /:id err");
     } else {
       Article.findOneAndUpdate({"_id": req.params.id}, {"note":doc._id})
-      .exec(function(err, doc){
+      .exec(function(err, notes){
         if(err) {
           console.log("POST /:id db res err");
         } else {
-          res.send(doc);
+          res.redirect("/vigilantcitizen")
         }
       });
     }

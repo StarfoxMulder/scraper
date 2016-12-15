@@ -17,11 +17,30 @@ header {
   margin-right: auto;
   padding-top: 5%;
 }*/
+main {
+  padding-top: 3%;
+}
 h1 {
   font-family: 'Aguafina Script', cursive;
-  color: #43697F;
+  color: #21244C;
   letter-spacing: 7px;
   margin-left: 5%;
+}
+
+/*article elements*/
+.media {
+  border: 1px solid #21244C;
+  padding-top: 1%;
+  padding-bottom: 1%;
+  padding-right: 1%;
+}
+#articles {
+  display: inline-block;
+  overflow: auto;
+}
+.media-object {
+  height: 64px;
+  width: 64px;
 }
 p {
   font-family: 'Alegreya Sans', sans-serif;
@@ -31,22 +50,47 @@ a {
   font-family: 'PT Sans', sans-serif;
   font-size: 20px;
 }
+.btn-info {
+  background-color: #99B3E3;
+}
+.btn-info:hover {
+  background-color: #5A65D4;
+}
+/*form for new note submission*/
+#noteForm {
+  border: 1px white solid;
+  margin-bottom: 2%;
+}
+label {
+  font-family: 'Alegreya Sans', sans-serif;
+  font-size: 17px;
+}
+#noteBody {
 
-#articles {
-  display: inline-block;
-  overflow: auto;
-  border: 1px solid black;
-}
-.media-object {
-  height: 64px;
-  width: 64px;
-}
-#notes {
-  border: 1px solid green;
 }
 textarea {
   display: block;
   background-color: #FCF5C7;
+}
+
+/*container and previous notes*/
+#submitNote {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+.note {
+
+}
+.noteText {
+
+}
+.btn-danger {
+  background-color: #37394C;
+}
+hr {
+  font-family: 'Alegreya Sans', sans-serif;
+  font-size: 17px;
 }
 
 /*textarea {

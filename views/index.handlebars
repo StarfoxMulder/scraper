@@ -1,5 +1,5 @@
 <header>
-  <h1>Protected Dusk</h1>
+  <h1>  Protected Dusk</h1>
 {{!--   <nav class="navbar navbar-inverse navbar-static-top">
     <div class="container-fluid">
       <!-- navbar colapse -->
@@ -32,16 +32,19 @@
             <li>
               <div class='media'>
                 <div class='media-left'>
-                  <img class='media-object' src='{{this.image}}'></div>
-                  <div class='media-body'>
+                  <img class='media-object' src='{{this.image}}'>
+                </div>
+                <div class='media-body'>
                   <a href='{{this.link}}'>
                   <h4 class='media-heading'>{{this.title}}</h4>
                   </a>{{this.source}}
                 </div>
                 <div class='media-right'>
-                  <button type='button' class='btn btn-info btn-lg' data-id='"{{this._id}}'>
-                  <span class='glyphicon glyphicon-comment' aria-hidden='true'></span> Comments
-                  </button>
+                  <form action= >
+                    <button type='submit' class='btn btn-info btn-lg' data-id='{{this._id}}' href='/{{this._id}}'>
+                    <span class='glyphicon glyphicon-comment' aria-hidden='true'></span> Notes
+                    </button>
+                  </form>
                 </div>
               </div>
             </li>
@@ -51,15 +54,38 @@
         </div>
       </div>
       <div class="col-xs-4">
-        <form>
+        <form id="noteForm" method="POST" action="/vigilantcitizen/?_method=POST" >
           <div class="form-group">
-            <label for="noteBody">Comment</label>
-            <textarea id="noteBody" class="form-control" rows="3"></textarea>
+            <label for="noteBody">Leave a Note</label>
+            <textarea id="noteBody" class="form-control" rows="4"></textarea>
           </div>
-          <button id="submitNote" type="submit" class="btn btn-default">Submit</button>
+          <button id="submitNote" type="submit" class="btn btn-info" data-id="hold">Submit</button>
         </form>
         <div id="notesContainer">
-          <div id="notes"></div>
+          <ul>
+          {{#each notes}}
+            <li class="note">
+              <div class='media'>
+                <div class='media-body'>
+                  <h5 class='noteText'>{{this.body}}</h5>
+                </div>
+                <div class='media-right'>
+                  <button type='button' class='btn btn-danger btn-sm' data-id='{{this._id}}'>
+                  <span class='glyphicon glyphicon-remove' aria-hidden='true'></span>
+                  </button>
+                </div>
+              </div>
+            </li>
+          {{else}}
+            <li class="note">
+              <div class='media'>
+                <div class='media-body'>
+                  <h5 class='noteText'>Be the first to comment on this article!</h5>
+                </div>
+              </div>
+            </li>
+          {{/each}}
+          </ul>
         </div>
       </div>
     </div>
