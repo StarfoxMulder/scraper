@@ -16,6 +16,7 @@ var ats = "Above Top Secret";
 var cm = "Cryptomundo";
 var pn = "Paranormal News";
 var di = "David Icke";
+var currentArticle = "default";
 // var up = "The Unbelievable Podcast";
 
 mongoose.Promise = Promise;
@@ -68,11 +69,11 @@ app.get("/", function(req, res) {
 // Testing basic format with vc MVC
 app.get("/vigilantcitizen", function(req, res){
 
-  Article.find().sort({"scrapeDate":-1}).exec( function(err, found){
+  Article.find().sort({"scrapeDate":1}).exec( function(err, found){
     if(err) {
-      console.log("Ghostbusters: "+err);
+      // console.log("Ghostbusters: "+err);
     } else {
-      console.log("Ghostbusters");
+      // console.log("Ghostbusters");
       res.render("index",{found : found});
       // res.json(found);
     }
@@ -85,38 +86,40 @@ app.get("/vigilantcitizen", function(req, res){
 // This will grab an article by it's ObjectId
 app.get("/vigilantcitizen/:id", function(req, res) {
 
-  Article.findOne({"_id": req.params.id}).populate("note").exec(function(err, notes){
+  Article.findOne({"_id": req.params.id}).populate("notes").exec(function(err, article){
       if(err) {
-        console.log("GET /:id err");
+        console.log("GET /:id err", err);
         res.send(err);
       } else {
-        console.log("GET /:id found");
-        res.render("index",{notes});
+        console.timeStamp("timestamp for GET /:id");
+        console.log("GET /:id found", article);
+        res.render("index",{article : article,
+          notes:article.notes});
       }
   });
 
 });
 // Create a new note or replace an existing note
 app.post("/vigilantcitizen/:id", function(req, res) {
+  if (res.status != 200) {
+    console.log(res);
+  }
   // console.log(res);
   var newNote = new Note(req.body);
   // save the new note that gets posted to the Notes collection
-  newNote.save(function(err, notes){
+  newNote.save(function(err, note){
     if(err) {
-      console.log("POST /:id err");
+      console.log(err);
     } else {
-      Article.findOneAndUpdate({"_id": req.params.id}, {"notes": notes._id})
-      .exec(function(err, notes){
-        if(err) {
-          console.log("ELSE Post",err);
-          console.log("sdkfjaksldhf jasjd");
-        } else {
-          console.log("ELSE ELSE Post Notes: ",notes);
-          res.redirect("/vigilantcitizen")
-        }
-      });
-    }
-  });
+      Article.findOneAndUpdate({"_id" : req.params.id}, {$push: {notes:note}}, {safe: true, upsert: true})
+      .exec(function(err, article){
+          if(err) {
+            console.log(err);
+          }
+          res.redirect("/vigilantcitizen");
+        });
+      };
+    });
 
 });
 

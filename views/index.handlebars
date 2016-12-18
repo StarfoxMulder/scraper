@@ -40,7 +40,7 @@
                   </a>{{this.source}}
                 </div>
                 <div class='media-right'>
-                  <form action= >
+                  <form>
                     <button type='submit' class='btn btn-info btn-lg' data-id='{{this._id}}' href='/{{this._id}}'>
                     <span class='glyphicon glyphicon-comment' aria-hidden='true'></span> Notes
                     </button>
@@ -54,15 +54,22 @@
         </div>
       </div>
       <div class="col-xs-4">
-        <form id="noteForm" method="POST" action="/vigilantcitizen/?_method=POST" >
+        <form id="noteForm">
           <div class="form-group">
             <label for="noteBody">Leave a Note</label>
             <textarea id="noteBody" class="form-control" rows="4"></textarea>
           </div>
-          <button id="submitNote" type="submit" class="btn btn-info" data-id="584cfa39b63c05329870b22a">Submit</button>
+          <button id="submitNote" type="submit" class="btn btn-info" data-id="584dab027dbc902e7c264fa6">Submit</button>
         </form>
         <div id="notesContainer">
           <ul id="notesUL">
+          {{#each article}}
+            <li class='note'><div class='media'><div class='media-body'><h5 class='noteText'>{{this.body}}</h5></div><div class='media-right'><button type='button' class='btn btn-danger btn-sm' data-id='{{this._id}}'><span class='glyphicon glyphicon-remove' aria-hidden='true'></span></button></div></div></li>
+          {{else}}
+            <li>
+              <p>Click on an article title to read the full text or hit the 'Notes' button to leave a comment about that article!</p>
+            </li>
+          {{/each}}
           </ul>
         </div>
       </div>
@@ -71,8 +78,14 @@
 </main>
 
 
-
-
+{{!-- Why can I not get handlebars to res the wya I want....vvv --}}
+{{!-- {{#each article}}
+  <li class='note'><div class='media'><div class='media-body'><h5 class='noteText'>{{this.body}}</h5></div><div class='media-right'><button type='button' class='btn btn-danger btn-sm' data-id='{{this._id}}'><span class='glyphicon glyphicon-remove' aria-hidden='true'></span></button></div></div></li>
+{{else}}
+  <li>
+    <p>Click on an article title to read the full text or hit the 'Notes' button to leave a comment about that article!</p>
+  </li>
+{{/each}} --}}
 
 
 
