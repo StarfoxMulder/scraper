@@ -63,13 +63,6 @@
         </form>
         <div id="notesContainer">
           <ul id="notesUL">
-          {{#each article}}
-            <li class='note'><div class='media'><div class='media-body'><h5 class='noteText'>{{this.body}}</h5></div><div class='media-right'><button type='button' class='btn btn-danger btn-sm' data-id='{{this._id}}'><span class='glyphicon glyphicon-remove' aria-hidden='true'></span></button></div></div></li>
-          {{else}}
-            <li>
-              <p>Click on an article title to read the full text or hit the 'Notes' button to leave a comment about that article!</p>
-            </li>
-          {{/each}}
           </ul>
         </div>
       </div>

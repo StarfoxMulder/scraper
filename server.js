@@ -88,14 +88,10 @@ app.get("/vigilantcitizen/:id", function(req, res) {
 
   Article.findOne({"_id": req.params.id}).populate("notes").exec(function(err, article){
       if(err) {
-        console.log("GET /:id err", err);
         res.send(err);
       } else {
-        console.timeStamp("timestamp for GET /:id");
-        console.log("GET /:id found", article);
-        res.render("index",{article : article,
-          notes:article.notes});
-      }
+        res.send(article.notes);
+      };
   });
 
 });
@@ -120,9 +116,9 @@ app.post("/vigilantcitizen/:id", function(req, res) {
         });
       };
     });
-
 });
 
+app.
 // A GET request to scrape the 5 websites: Vigilant Citizen, Above Top Secret,
 //   Cryptomundo, Paranormal News, and David Icke
 function scrape() {
