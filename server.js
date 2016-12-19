@@ -41,7 +41,13 @@ app.engine('handlebars', exphbs({
 app.set('view engine', 'handlebars');
 
 // Configuring protected_dust database
-mongoose.connect("mongodb://localhost/protected_dust");
+var databaseUri = "mongodb://localhost/protected_dust";
+if (process.env.MONGODB_URI) {
+  mongoose.connect(process.env.MONGODB_URI);
+} else {
+  mongoose.connect(databaseUri);
+}
+
 var db = mongoose.connection;
 
 // Show any mongoose errors
@@ -64,21 +70,13 @@ db.once("open", function() {
 /////*/
 scrape();
 
-app.get("/", function(req, res) {
-  scrape();
-  res.redirect("/vigilantcitizen");
-});
-
 // Testing basic format with vc MVC
-app.get("/vigilantcitizen", function(req, res){
-
+app.get("/", function(req, res){
+  scrape();
   Article.find().sort({"scrapeDate":-1}).exec( function(err, found){
     if(err) {
-      // console.log("Ghostbusters: "+err);
     } else {
-      // console.log("Ghostbusters");
       res.render("index",{found : found});
-      // res.json(found);
     }
   });
 
@@ -87,7 +85,7 @@ app.get("/vigilantcitizen", function(req, res){
 /////////////// SMALL TEST  \\\\\\\\\\\\\
 ////  Just with vigilantcitizen data  \\\\
 // This will grab an article by it's ObjectId
-app.get("/vigilantcitizen/:id", function(req, res) {
+app.get("/:id", function(req, res) {
 
   Article.findOne({"_id": req.params.id}).populate("notes").exec(function(err, article){
       if(err) {
@@ -99,11 +97,10 @@ app.get("/vigilantcitizen/:id", function(req, res) {
 
 });
 // Create a new note or replace an existing note
-app.post("/vigilantcitizen/:id", function(req, res) {
+app.post("/:id", function(req, res) {
   if (res.status != 200) {
     console.log(res);
   }
-  // console.log(res);
   var newNote = new Note(req.body);
   // save the new note that gets posted to the Notes collection
   newNote.save(function(err, note){
@@ -122,7 +119,7 @@ app.post("/vigilantcitizen/:id", function(req, res) {
     });
 });
 
-app.post("/vigilantcitizen/delete/:id", function(req, res) {
+app.post("/delete/:id", function(req, res) {
   Note.findByIdAndRemove(req.params.id, function(err, data){
     if(err) {
       console.log("delete err: ", err);
@@ -131,8 +128,7 @@ app.post("/vigilantcitizen/delete/:id", function(req, res) {
     }
   });
 });
-// A GET request to scrape the 5 websites: Vigilant Citizen, Above Top Secret,
-//   Cryptomundo, Paranormal News, and David Icke
+/* A GET request to scrape the 5 websites: Vigilant Citizen, Above Top Secret, Cryptomundo, Paranormal News, and David Icke */
 function scrape() {
 
   //Scraping Vigilant Citizen

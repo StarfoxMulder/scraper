@@ -12,7 +12,7 @@ $(document).on("click", ".btn-lg", function() {
   // Now make an ajax call for the Article
   $.ajax({
     method: "GET",
-    url: "/vigilantcitizen/" + thisId
+    url: "/" + thisId
   })
     // With that done, add the note information to the page
     .done(function(found) {
@@ -37,7 +37,7 @@ $(document).on("click", "#submitNote", function() {
   // making an ajax call for the Article
   $.ajax({
     method: "POST",
-    url: "/vigilantcitizen/"+currentArticle,
+    url: "/"+currentArticle,
     data: {
       body: $("#noteBody").val(),
       scrapeDate: Date.now()
@@ -55,7 +55,7 @@ $(document).on("click", ".btn-danger", function(){
 
   $.ajax({
     method: "POST",
-    url: "/vigilantcitizen/delete/"+thisId,
+    url: "/delete/"+thisId,
   })
   .then(function(err, data) {
     if(err) {
