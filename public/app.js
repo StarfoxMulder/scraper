@@ -1,23 +1,4 @@
 
-/* Sould be able to abstract this out to a general function accepting
-//  the source variable as a paramter:
-      function getArticles(source) {};
-    and then pass in the source at the end of the click handler switching
-    over to the source's info:
-      getArticles(di);
-*///////
-
-/* Moving toward a single page for all results
-//// After talking with intended users, this is what they want */
-// $.getJSON("/vigilantcitizen", function(data) {
-//   for (var i = 0; i < data.length; i++) {
-//     $("#articles").append("<div class='media'><div class='media-left'><img class='media-object' src='"+data[i].image+"'></div><div class='media-body'><a href='"+data[i].link+"'><h4 class='media-heading'>"+data[i].title+"</h4></a>"+data[i].source+"</div><div class='media-right'><button type='button' class='btn btn-info btn-lg' data-id='"+data[i]._id+"'><span class='glyphicon glyphicon-comment' aria-hidden='true'></span>Comments</button></div></div>")
-//   }
-// });
-
-// $(document).ready(function() {
-//   $("#notesContainer").empty();
-// });
 var currentArticle = "placeHolder";
 
 $(document).on("click", ".btn-lg", function() {
@@ -36,13 +17,12 @@ $(document).on("click", ".btn-lg", function() {
     // With that done, add the note information to the page
     .done(function(found) {
       $("#notesUL").empty();
-      console.log("jQuery ajax result for found"+ found +"<!--END jQuery ajax found -->");
       if(found.length == 0) {
         $("#notesUL").append("Be the first to comment on this article!");
       } else {
         for (var i = 0; i < found.length; i++) {
           // The title of the article
-          $("#notesUL").append("<li class='note'><div class='media'><div class='media-body'><h5 class='noteText'>"+found[i].body+"</h5></div><div class='media-right'><button type='button' class='btn btn-danger btn-sm' data-id='"+found[i]._id+"'><span class='glyphicon glyphicon-remove' aria-hidden='true'></span></button></div></div></li>");
+          $("#notesUL").append("<li class='note'><div class='media'><div class='media-body'><h5 class='noteText'>"+found[i].body+"</h5></div><div class='media-right'><button type='button' class='btn btn-danger btn-sm' data-id='"+found[i]._id+"' href='/delete/"+found[i]._id+"'><span class='glyphicon glyphicon-remove' aria-hidden='true'></span></button></div></div></li>");
         };
       };
     });
@@ -64,13 +44,29 @@ $(document).on("click", "#submitNote", function() {
     }
   })
   .done(function(data) {
-    console.log(data);
-    // $("#notesUL").empty();
   });
   $("#noteBody").val("");
+  // return false;
 })
 
-// module.exports = App;
+$(document).on("click", ".btn-danger", function(){
+
+  var thisId = $(this).attr("data-id");
+
+  $.ajax({
+    method: "POST",
+    url: "/vigilantcitizen/delete/"+thisId,
+  })
+  .then(function(err, data) {
+    if(err) {
+      console.log("ajax delete error: ", err);
+    } else {
+      console.log("data returned after delete post finished: ", data);
+    }
+  });
+  // return false;
+
+});
 
 // "<li class='note'><div class='media'><div class='media-body'><h5 class='noteText'>"+data[i].body+"</h5></div><div class='media-right'><button type='button' class='btn btn-danger btn-sm' data-id='"+data[i]._id+"'><span class='glyphicon glyphicon-remove' aria-hidden='true'></span></button></div></div></li>"
 

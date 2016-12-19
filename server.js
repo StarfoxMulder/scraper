@@ -31,6 +31,9 @@ app.use(bodyParser.urlencoded({
 }));
 app.use(express.static("public"));
 
+// override with POST having ?_method=DELETE
+app.use(methodOverride('_method'));
+
 //Setting up handlebars
 app.engine('handlebars', exphbs({
   defaultLayout: 'main'
@@ -69,7 +72,7 @@ app.get("/", function(req, res) {
 // Testing basic format with vc MVC
 app.get("/vigilantcitizen", function(req, res){
 
-  Article.find().sort({"scrapeDate":1}).exec( function(err, found){
+  Article.find().sort({"scrapeDate":-1}).exec( function(err, found){
     if(err) {
       // console.log("Ghostbusters: "+err);
     } else {
@@ -111,14 +114,23 @@ app.post("/vigilantcitizen/:id", function(req, res) {
       .exec(function(err, article){
           if(err) {
             console.log(err);
-          }
-          res.redirect("/vigilantcitizen");
+          } else {
+            res.redirect(req.originalUrl);
+        }
         });
       };
     });
 });
 
-app.
+app.post("/vigilantcitizen/delete/:id", function(req, res) {
+  Note.findByIdAndRemove(req.params.id, function(err, data){
+    if(err) {
+      console.log("delete err: ", err);
+    } else {
+      // res.redirect();
+    }
+  });
+});
 // A GET request to scrape the 5 websites: Vigilant Citizen, Above Top Secret,
 //   Cryptomundo, Paranormal News, and David Icke
 function scrape() {
@@ -166,7 +178,7 @@ function scrape() {
 
       result.title = $(this).children("a").text();
       result.link = $(this).children("a").attr("href");
-      result.image = "http://files.abovetopsecret.com/images/menulogoB.png";
+      result.image = "http://www.abovetopsecret.com/touch-icon-ipad-retina.png";
       result.source = ats;
 
       var entry = new Article(result);
