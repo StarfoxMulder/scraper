@@ -81,6 +81,16 @@ app.get("/", function(req, res){
   });
 
 });
+app.get("/saved", function(req, res){
+  scrape();
+  Article.find().sort({"saved": true}).exec( function(err, found){
+    if(err) {
+    } else {
+      res.render("index",{found : found});
+    }
+  });
+
+});
 
 /////////////// SMALL TEST  \\\\\\\\\\\\\
 ////  Just with vigilantcitizen data  \\\\
@@ -117,6 +127,21 @@ app.post("/:id", function(req, res) {
         });
       };
     });
+});
+
+app.post("/save/:id", function(req, res) {
+  if (res.status != 200){
+    console.log(res)
+  } else {
+    Article.findOneAndUpdate({"_id": req.params.id}, {saved: true})
+    .exec(function(err, save) {
+      if (err) {
+        console.log(err);
+      } else {
+        res.redirect(req.originalUrl);
+      }
+    });
+  }
 });
 
 app.post("/delete/:id", function(req, res) {

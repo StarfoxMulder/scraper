@@ -1,7 +1,7 @@
 
 var currentArticle = "placeHolder";
 
-$(document).on("click", ".btn-lg", function() {
+$(document).on("click", ".noteBtn", function() {
 
   // Save the id from the 'notes' button
   var thisId = $(this).attr("data-id");
@@ -22,7 +22,7 @@ $(document).on("click", ".btn-lg", function() {
       } else {
         for (var i = 0; i < found.length; i++) {
           // The title of the article
-          $("#notesUL").append("<li class='note'><div class='media'><div class='media-body'><h5 class='noteText'>"+found[i].body+"</h5></div><div class='media-right'><button type='button' class='btn btn-danger btn-sm' data-id='"+found[i]._id+"' href='/delete/"+found[i]._id+"'><span class='glyphicon glyphicon-remove' aria-hidden='true'></span></button></div></div></li>");
+          $("#notesUL").append("<li class='note'><div class='media noteMedia'><div class='media-body'><p class='noteText'>"+found[i].body+"</p></div><div class='media-right'><button type='button' class='btn btn-danger btn-sm' data-id='"+found[i]._id+"' href='/delete/"+found[i]._id+"'><span class='glyphicon glyphicon-remove' aria-hidden='true'></span></button></div></div></li>");
         };
       };
     });

@@ -6,11 +6,11 @@ body {
   background-repeat: no-repeat;
   background-attachment: fixed;
 }
-header {
+/*header {
   background-color: #9499CC;
   padding-top: 2px;
   width: 100%;
-}
+}*/
 /*#wrapper {
   width: 960px;
   margin-left: auto;
@@ -20,16 +20,31 @@ header {
 main {
   padding-top: 3%;
 }
-h1 {
-  font-family: 'Aguafina Script', cursive;
+#brandTitle {
+  font-family: 'Aguafina Script', serif;
   color: #21244C;
   letter-spacing: 7px;
   margin-left: 5%;
+  margin-right: 5%;
+  font-size: 28px;
+  width: auto;
 }
+nav {
+  background-color: #9499CC;
+  font-family: 'EB Garamond', serif;
+}
+.navbar-nav {
+  color: #21244C;
+}
+.icon-bar {
+  color: #21244C;
+}
+
 
 /*article elements*/
 .media {
   border: 1px solid #21244C;
+  border-radius: 8px;
   padding-top: 1%;
   padding-bottom: 1%;
   padding-right: 1%;
@@ -43,7 +58,7 @@ h1 {
   width: 64px;
 }
 p {
-  font-family: 'Alegreya Sans', sans-serif;
+  font-family: 'EB Garamond', serif;
   font-size: 17px;
 }
 a {
@@ -56,17 +71,22 @@ a {
 .btn-info:hover {
   background-color: #5A65D4;
 }
+.btn-warning {
+  background-color: #21244C;
+}
+.btn-warning:hover {
+  background-color: #6F7399;
+}
 /*form for new note submission*/
 #noteForm {
-  border: 1px white solid;
   margin-bottom: 2%;
 }
 label {
-  font-family: 'Alegreya Sans', sans-serif;
+  font-family: 'EB Garamond', serif;
   font-size: 17px;
 }
 #noteBody {
-
+  font-family: 'EB Garamond', serif;
 }
 textarea {
   display: block;
@@ -79,18 +99,15 @@ textarea {
   margin-left: auto;
   margin-right: auto;
 }
-.note {
-
+.noteMedia {
+  border-bottom: 1px solid #21244C;
+  border-radius: 8px;
 }
 .noteText {
-
+  padding-left: 2%;
 }
 .btn-danger {
   background-color: #37394C;
-}
-hr {
-  font-family: 'Alegreya Sans', sans-serif;
-  font-size: 17px;
 }
 
 /*textarea {
