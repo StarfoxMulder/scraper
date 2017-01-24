@@ -1,0 +1,48 @@
+<header>
+  {{!-- <h1>  Protected Dusk</h1> --}}
+  <nav class="navbar navbar navbar-static-top">
+    <div class="container-fluid">
+      <!-- navbar colapse -->
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+         <span class="sr-only">Toggle navigation</span>
+         <span class="icon-bar"></span>
+         <span class="icon-bar"></span>
+         <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="/" id="brandTitle">Protected Dusk</a>
+      </div>
+      <div class="collapse navbar-collapse" id="navbarCollapse">
+        <ul class="nav navbar-nav">
+          <li><a href="/">News</a></li>
+          <li class="disabled"><a href="/mostcommented">Most Commented</a></li>
+          <li class="disabled"><a href="/podcasts">Podcasts</a></li>
+          <li class="disabled"><a href="/saved" >Saved</a></li>
+          <li class="disabled"><a href="/saved" >{{title}}</a></li>
+          <li class="disabled"><a href="/saved" >{{user}}</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+</header>
+<main>
+  <div id="container">
+    <div class="row">
+
+      <div class="col-xs-4 col-xs-offset-4">
+        <form id="loginForm" method="POST" action="/register">
+          <div class="form-group">
+            <label for="userName">User Name</label>
+            <input id="userName" class="form-control" type="username" placeholder="Rhyolite38"></input>
+            <label for="email">Email</label>
+            <input id="email" class="form-control" type="email" placeholder="Ex: PSchneider@DUMB.secret.gov"></input>
+            <label for="password">Password</label>
+            <input id="password" class="form-control" type="password" placeholder="b1gF00t$t0mp"></input>
+          </div>
+          <button id="submitNewUser" class="btn btn-info col-xs-offset-5" type="submit">Submit</button>
+        </form>
+      </div>
+
+    </div>
+  </div>
+</main>

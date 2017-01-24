@@ -37,12 +37,20 @@
     "bluebird": "^3.4.6",
     "body-parser": "^1.15.2",
     "cheerio": "^0.22.0",
+    "connect-flash": "^0.1.1",
+    "cookie-parser": "^1.4.3",
     "express": "^4.14.0",
     "express-handlebars": "^3.0.0",
+    "express-session": "^1.15.0",
+    "express-stormpath": "^3.1.9",
     "method-override": "^2.3.7",
     "mongoose": "^4.7.1",
     "morgan": "^1.7.0",
+    "passport": "^0.3.2",
+    "passport-stormpath": "^0.2.4",
     "path": "^0.12.7",
-    "request": "^2.79.0"
+    "request": "^2.79.0",
+    "static-favicon": "^2.0.0-alpha",
+    "stormpath": "^0.19.1"
   }
 }
