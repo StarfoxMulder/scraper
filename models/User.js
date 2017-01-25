@@ -9,13 +9,13 @@ var UserSchema = new Schema({
     required: true,
     unique: true
   },
-  stormpathId: {
+  email: {
     type: String,
-    required: false
+    required: true,
   },
-  image: {
+  password: {
     type: String,
-    required: false
+    required: true,
   },
   jumboOne: {
     type: String,

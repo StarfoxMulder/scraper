@@ -3,6 +3,7 @@ var router = express.Router();
 var stormpath = require('express-stormpath')
 var Note = require("../models/Note.js");
 var Article = require("../models/Article.js");
+var User = require("../models/User.js");
 var logger = require("morgan");
 var mongoose = require("mongoose");
 var request = require("request");
@@ -23,8 +24,53 @@ var currentArticle = "default";
 // });
 
 router.get("/", function(req,res) {
-  res.redirect('/register');
+  res.redirect('/login');
 })
+
+router.get("/register", function(req, res){
+  res.render("register");
+});
+
+router.post("/register", function(req, res) {
+  User.register(new User({
+    userName: req.body.userName,
+    email: req.body.email,
+    password: req.body.password
+  }),
+
+  req.body.password, function(err, user){
+    if(err){
+      console.log(err);
+      return res.redirect("/error");
+    }
+    passport.authenticate("local")(req, res, function() {
+      res.redirect("/");
+    });
+  })
+});
+
+router.post("/login", passport.authenticate("local", {
+    failureRedirect: "/"
+}), function(req, res) {
+    reRoute(req,res);
+});
+
+    function isLoggedIn(req,res,next){
+      if(req.isAuthenticated()){
+        return next();
+      }
+      res.redirect("/");
+    }
+    function reRoute(req,res){
+      res.redirect("/profile);
+    }
+    function autoRedirect(req,res,next){
+      if(req.isAuthenticated()){
+        reRoute(req,res);
+      } else {
+        res.redirect("/error");
+      }
+    }
 
 
 
@@ -38,7 +84,6 @@ router.get('/public', function(req, res){
   });
 });
 
-//router.get('/home', stormpath.loginRequired, function(req, res)
 router.get('/home', function(req, res){
   Article.find().sort({"scrapeDate":-1}).exec( function(err, found){
     if(err) {
@@ -47,8 +92,6 @@ router.get('/home', function(req, res){
     }
   });
 });
-
-//router.get("/profile", stormpath.loginRequired, function(req, res)
 
 router.get("/profile", function(req, res){
 
