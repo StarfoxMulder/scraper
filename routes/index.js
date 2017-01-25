@@ -26,6 +26,8 @@ router.get("/", function(req,res) {
   res.redirect('/register');
 })
 
+
+
 router.get('/public', function(req, res){
 
   Article.find().sort({"scrapeDate":-1}).exec( function(err, found){
@@ -49,6 +51,8 @@ router.get('/home', function(req, res){
 //router.get("/profile", stormpath.loginRequired, function(req, res)
 
 router.get("/profile", function(req, res){
+
+  res.locals.user.email
   Article.find().sort({"saved": -1}).exec( function(err, found){
     if(err) {
     } else {
