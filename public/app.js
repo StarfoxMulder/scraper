@@ -42,7 +42,7 @@ $(document).on("click", ".noteBtn", function() {
       } else {
         for (var i = 0; i < found.length; i++) {
           // The title of the article
-          $("#notesUL").append("<li class='note'><div class='media noteMedia'><div class='media-body'><p class='noteText'>"+found[i].body+"</p></div><div class='media-right'><button type='button' class='btn btn-danger btn-sm' data-id='"+found[i]._id+"' href='/delete/"+found[i]._id+"'><span class='glyphicon glyphicon-remove' aria-hidden='true'></span></button></div></div></li>");
+          $("#notesUL").append("<li class='note'><div class='media noteMedia'><div class='media-left'><p>"+found[i].posterName+"</p></div><div class='media-body'><p class='noteText'>"+found[i].body+"</p></div><div class='media-right'><button type='button' class='btn btn-danger btn-sm' data-id='"+found[i]._id+"' href='/delete/"+found[i]._id+"'><span class='glyphicon glyphicon-remove' aria-hidden='true'></span></button></div></div></li>");
         };
       };
     });

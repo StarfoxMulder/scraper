@@ -1,37 +1,69 @@
 var express = require("express");
 var router = express.Router();
+var stormpath = require('express-stormpath')
+var Note = require("../models/Note.js");
+var Article = require("../models/Article.js");
+var logger = require("morgan");
+var mongoose = require("mongoose");
+var request = require("request");
+var cheerio = require("cheerio");
+var vc = "Vigilant Citizen";
+var ats = "Above Top Secret";
+var cm = "Cryptomundo";
+var pn = "Paranormal News";
+var di = "David Icke";
+var currentArticle = "default";
+// var up = "The Unbelievable Podcast";
 
-router.get("/home", function(req, res){
-  res.render("home", {title: "Home", user: req.user});
-});
+/////  Routes  \\\\\
+/////  ======  \\\\\
 
-router.get("/dashboard", function(req, res){
-  if (!req.user || req.user.status !== 'ENABLED') {
-    return res.redirect('/login');
-  }
+// router.get("/home", function(req, res){
+//   res.render("home", {title: "Home", user: req.user});
+// });
 
-  scrape();
+router.get("/", function(req,res) {
+  res.redirect('/register');
+})
+
+router.get('/public', function(req, res){
+
   Article.find().sort({"scrapeDate":-1}).exec( function(err, found){
     if(err) {
     } else {
-      res.render("index",{found : found, title: "Dashboard", user: req.user});
+      res.render("index",{found : found, title: "Public"});
     }
   });
 });
 
-router.get("/saved", function(req, res){
-  Article.find().sort({"saved": true}).exec( function(err, found){
+//router.get('/home', stormpath.loginRequired, function(req, res)
+router.get('/home', function(req, res){
+  Article.find().sort({"scrapeDate":-1}).exec( function(err, found){
     if(err) {
     } else {
-      res.render("index",{found : found});
+      res.render("home",{found : found, title: "Home"});
     }
   });
-
 });
 
-/////////////// SMALL TEST  \\\\\\\\\\\\\
-////  Just with vigilantcitizen data  \\\\
-// This will grab an article by it's ObjectId
+//router.get("/profile", stormpath.loginRequired, function(req, res)
+
+router.get("/profile", function(req, res){
+  Article.find().sort({"saved": -1}).exec( function(err, found){
+    if(err) {
+    } else {
+      console.log(req.user);
+      console.log(res);
+      res.render("profile",{found : found, user: req.user});
+    }
+  });
+});
+
+router.get("/scrape", function(req, res) {
+  scrape();
+})
+
+
 router.get("/notes/:id", function(req, res) {
 
   Article.findOne({"_id": req.params.id}).populate("notes").exec(function(err, article){
@@ -102,7 +134,7 @@ function scrape() {
   request("http://www.vigilantcitizen.com/", function(error, response, html) {
 
     var $ = cheerio.load(html);
-    // The content we need is located within div.td-module-thumb
+
     $("div.td-module-thumb").each(function(i, element) {
 
       var result = {};
@@ -115,15 +147,11 @@ function scrape() {
 
       var entry = new Article(result);
 
-      // Saving this instance of the Article model with
-      //  scraped article title and url to the db
       entry.save(function(err, doc) {
 
         if (err) {
-          // console.log("turn on vc err");
         }
         else {
-          // console.log("vc worked");
         }
       });
     });
@@ -134,7 +162,7 @@ function scrape() {
   request("http://www.abovetopsecret.com/", function(error, response, html) {
 
     var $ = cheerio.load(html);
-    // The content we need is located within div.td-module-thumb
+
     $("div.headline").each(function(i, element) {
 
       var result = {};
@@ -146,15 +174,11 @@ function scrape() {
 
       var entry = new Article(result);
 
-      // Saving this instance of the Article model with
-      //  scraped article title and url to the db
       entry.save(function(err, doc) {
 
         if (err) {
-          // console.log("turn on ats err");
         }
         else {
-          // console.log("ats worked");
         }
       });
     });
@@ -162,11 +186,10 @@ function scrape() {
   });
 
   //Scraping Cryptomundo
-  //// If a url does not have www. sould this be included? check docs
   request("http://cryptomundo.com/", function(error, response, html) {
 
     var $ = cheerio.load(html);
-    // The content we need is located within div.td-module-thumb
+
     $("p.highlight").each(function(i, element) {
 
       var result = {};
@@ -178,15 +201,11 @@ function scrape() {
 
       var entry = new Article(result);
 
-      // Saving this instance of the Article model with
-      //  scraped article title and url to the db
       entry.save(function(err, doc) {
 
         if (err) {
-          // console.log("turn on cm err");
         }
         else {
-          // console.log("cm worked");
         }
       });
     });
@@ -197,7 +216,7 @@ function scrape() {
   request("https://www.paranormalnews.com/", function(error, response, html) {
 
     var $ = cheerio.load(html);
-    // The content we need is located within div.td-module-thumb
+
     $("div.listItemTitle").each(function(i, element) {
 
       var result = {};
@@ -209,15 +228,11 @@ function scrape() {
 
       var entry = new Article(result);
 
-      // Saving this instance of the Article model with
-      //  scraped article title and url to the db
       entry.save(function(err, doc) {
 
         if (err) {
-          // console.log("turn on pn err");
         }
         else {
-          // console.log("pn worked");
         }
       });
     });
@@ -228,7 +243,7 @@ function scrape() {
   request("https://www.davidicke.com/headlines", function(error, response, html) {
 
     var $ = cheerio.load(html);
-    // The content we need is located within div.td-module-thumb
+
     $("h2.post-title").each(function(i, element) {
 
       var result = {};
@@ -240,15 +255,11 @@ function scrape() {
 
       var entry = new Article(result);
 
-      // Saving this instance of the Article model with
-      //  scraped article title and url to the db
       entry.save(function(err, doc) {
 
         if (err) {
-          // console.log("turn on di err");
         }
         else {
-          // console.log("di worked");
         }
       });
     });

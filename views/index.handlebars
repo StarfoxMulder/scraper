@@ -1,35 +1,8 @@
-<header>
-  {{!-- <h1>  Protected Dusk</h1> --}}
-  <nav class="navbar navbar navbar-static-top">
-    <div class="container-fluid">
-      <!-- navbar colapse -->
-      <div class="navbar-header">
-        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-         <span class="sr-only">Toggle navigation</span>
-         <span class="icon-bar"></span>
-         <span class="icon-bar"></span>
-         <span class="icon-bar"></span>
-        </button>
-        <a class="navbar-brand" href="/" id="brandTitle">Protected Dusk</a>
-      </div>
-      <div class="collapse navbar-collapse" id="navbarCollapse">
-        <ul class="nav navbar-nav">
-          <li><a href="/">News</a></li>
-          <li class="disabled"><a href="/mostcommented">Most Commented</a></li>
-          <li class="disabled"><a href="/podcasts">Podcasts</a></li>
-          <li class="disabled"><a href="/saved" >Saved</a></li>
-          <li class="disabled"><a href="/saved" >{{title}}</a></li>
-          <li class="disabled"><a href="/saved" >{{user}}</a></li>
-        </ul>
-      </div>
-    </div>
-  </nav>
-</header>
 <main>
   <div id="container">
     <div class="row">
 
-      <div class="col-xs-6 col-xs-offset-1">
+      <div class="col-xs-6 col-xs-offset-3">
         <div id="articleContainer">
           <div id="articles">
           <ul>
@@ -59,20 +32,6 @@
           {{/each}}
           </ul>
           </div>
-        </div>
-      </div>
-
-      <div class="col-xs-4">
-        <form id="noteForm">
-          <div class="form-group">
-            <label for="noteBody">Leave a Note</label>
-            <textarea id="noteBody" class="form-control" rows="4"></textarea>
-          </div>
-          <button id="submitNote" type="submit" class="btn btn-info" data-id="584dab027dbc902e7c264fa6">Submit</button>
-        </form>
-        <div id="notesContainer">
-          <ul id="notesUL">
-          </ul>
         </div>
       </div>
 

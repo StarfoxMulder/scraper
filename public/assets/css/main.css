@@ -44,10 +44,11 @@ nav {
 /*article elements*/
 .media {
   border: 1px solid #21244C;
-  border-radius: 8px;
+  border-radius: 5px;
   padding-top: 1%;
   padding-bottom: 1%;
   padding-right: 1%;
+  padding-left:1%;
 }
 #articles {
   display: inline-block;
@@ -56,6 +57,7 @@ nav {
 .media-object {
   height: 64px;
   width: 64px;
+  border-radius: 5px;
 }
 p {
   font-family: 'EB Garamond', serif;
@@ -118,4 +120,30 @@ textarea {
 
 .homeMedia {
   background-color: rgba(204, 192, 148, .3);
+}
+
+/*///// Profile Page //////*/
+#topJumbotrons {
+  display: flex;
+}
+.jcont {
+  padding-left: 0%;
+  padding-right: 0%;
+  bottom: 0;
+  margin-bottom: 0;
+  align-items: stretch;
+}
+.jumbotron {
+  padding: 1%, 1%;
+  border-radius: 5px;
+  border: 1px solid #21244C;
+  margin: 0%;
+  height: 100%;
+}
+.jumbotron p {
+  font-family: 'EB Garamond', serif;
+  font-size: 18px;
+}
+#articleContainer{
+  padding-top: 1%;
 }

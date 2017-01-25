@@ -14,10 +14,10 @@ var NoteSchema = new Schema({
       "If you would like to leave a comment on this article, please make sure that its length is between 1 and 300 characters long."
     ]
   },
-  // articleId: {
-  //   type: String,
-  //   require: true
-  // },
+  posterName: {
+    type: String,
+    require: true
+  },
   noteCreated: {
     type: Date,
     default: Date.now

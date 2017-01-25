@@ -1,0 +1,124 @@
+<main class="container">
+  <section id="profileTop">
+    <div class="row" id="topJumbotrons">
+      <div class="col-xs-6 jcont">
+        <div class="jumbotron">
+          <h3>Hey ::pull username::!</h3>
+          <p>Here's a little area for you to introduce yourself and maybe add a profile picture, location, and other junk once I wrangle in authentication tokens from Stormpath ;)</p>
+          <p class="pull-right"><a class="btn btn-primary btn-md" href="#" role="button">Update <span class="glyphicon glyphicon-ok" aria-hidden="true"></span></a></p>
+        </div>
+      </div>
+
+      <div class="col-xs-6 jcont">
+        <div class="jumbotron">
+          <h3>Here is a second area for you</h3>
+          <p>Feel free to write notes about what you're researching, area's of interest, or topics you're hoping others will share with you when they see your profile. Everything writen here (and the other editable container wtih your name on it) is visible to all users, but only you can change/save the contents!</p>
+          <p class="pull-right"><a class="btn btn-primary btn-md" href="#" role="button">Update <span class="glyphicon glyphicon-ok" aria-hidden="true"></span></a></p>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="row">
+      <div class="col-xs-12">
+        <div class="jumbotron">
+          <h3>Here is a big'ol to Lizardman Stomp'round in!</h3>
+          <p>...If have a better idea for the layout, send me an image of your draft or sketch of your layout at UnbelieverJude@gmail.com or @JudeicialReview on Gab and Twitter....</p>
+          <p class="pull-right"><a class="btn btn-primary btn-md" href="#" role="button">Update <span class="glyphicon glyphicon-ok" aria-hidden="true"></span></a></p>
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+  <section>
+    <div class="col-xs-6 col-xs-offset-1">
+      <div id="articleContainer">
+        <div id="articles">
+          <ul>
+            {{#each found}}
+              <li>
+                <div class='media'>
+                  <div class='media-left'>
+                    <img class='media-object' src='{{this.image}}'>
+                  </div>
+                  <div class='media-body'>
+                    <a href='{{this.link}}'>
+                    <h4 class='media-heading'>{{this.title}}</h4>
+                    </a>{{this.source}}
+                  </div>
+                  <div class='media-right'>
+                    <form>
+                      <button type='submit' class='btn btn-info noteBtn' data-id='{{this._id}}' href='/notes/{{this._id}}'>
+                      <span class='glyphicon glyphicon-comment' aria-hidden='true'></span> Note
+                      </button>
+                      <button type='submit' class='btn btn-warning disabled' data-id='{{this._id}}' href='/save/{{this._id}}'>
+                      <span class='glyphicon glyphicon-pushpin' aria-hidden='true'></span> Save
+                      </button>
+                    </form>
+                  </div>
+                </div>
+              </li>
+            {{/each}}
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-xs-4">
+      <form id="noteForm">
+        <div class="form-group">
+          <label for="noteBody">Leave a Note</label>
+          <textarea id="noteBody" class="form-control" rows="4"></textarea>
+        </div>
+        <button id="submitNote" type="submit" class="btn btn-info" data-id="584dab027dbc902e7c264fa6">Submit</button>
+      </form>
+      <div id="notesContainer">
+        <ul id="notesUL">
+        </ul>
+      </div>
+    </div>
+
+  </section>
+
+</main>
+
+
+{{!-- Why can I not get handlebars to res the wya I want....vvv --}}
+{{!-- {{#each article}}
+  <li class='note'><div class='media'><div class='media-body'><h5 class='noteText'>{{this.body}}</h5></div><div class='media-right'><button type='button' class='btn btn-danger btn-sm' data-id='{{this._id}}'><span class='glyphicon glyphicon-remove' aria-hidden='true'></span></button></div></div></li>
+{{else}}
+  <li>
+    <p>Click on an article title to read the full text or hit the 'Notes' button to leave a comment about that article!</p>
+  </li>
+{{/each}} --}}
+
+
+
+{{!-- <div class="container">
+  <div class="row">
+    <div class="col-xs-12 text-center" id="top-bar">
+      <img src="/assets/images/burger.png" alt="burger" />
+      <h1> {{this.source}} </h1>
+    </div>
+    <div class="col-xs-6 text-center" class="task">
+      <div class="row">
+        {{#each burger_data}}
+          {{#unless this.devoured}}
+        <div class="col-xs-9 text-center">
+          <pre>{{this.id}}. {{this.burger_name}}
+          </pre>
+              <!-- {{this.Date}} -->
+        </div>
+        <div class="col-xs-3 text-center">
+          <form method="POST" action="/burgers/update?_method=PUT" class="button-size">
+            <input input type="hidden" type="text" name="burger_id" value={{this.id}}><br>
+            <button type="submit" class="btn btn-default">Devour it!</button>
+          </form>
+        </div>
+        {{/unless}}
+        {{/each}}
+      </div>
+    </div>
+  </div>
+</div> --}}

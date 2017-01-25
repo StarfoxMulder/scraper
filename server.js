@@ -12,34 +12,27 @@ var Article = require("./models/Article.js");
 var request = require("request");
 var cheerio = require("cheerio");
 var Promise = require("bluebird");
-var cookieParser = require('cookie-parser');
-var favicon = require('static-favicon');
 var passport = require('passport');
 var StormpathStrategy = require('passport-stormpath');
 var session = require('express-session');
 var flash = require('connect-flash');
-var vc = "Vigilant Citizen";
-var ats = "Above Top Secret";
-var cm = "Cryptomundo";
-var pn = "Paranormal News";
-var di = "David Icke";
-var currentArticle = "default";
-// var up = "The Unbelievable Podcast";
+var app = express();
+var PORT = process.env.PORT || 3000;
+var index_routes = require('./routes/index');
+// var auth_routes = require('./routes/auth');
 
 mongoose.Promise = Promise;
 
-// Initialize Express
-var app = express();
 
-// Setting up morgan, body-parser, and a static folder
-app.use(logger("dev"));
-app.use(bodyParser.urlencoded({
-  extended: false
-}));
-app.use(express.static("public"));
-
+// Setting up express
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.static("./public"));
+app.use(logger('dev'));
+app.use(bodyParser.json());
 // override with POST having ?_method=DELETE
 app.use(methodOverride('_method'));
+app.use('/', index_routes);
+// app.use('/', auth_routes);
 
 //Setting up handlebars
 app.engine('handlebars', exphbs({
@@ -56,118 +49,54 @@ if (process.env.MONGODB_URI) {
 }
 
 var db = mongoose.connection;
-
-// Show any mongoose errors
 db.on("error", function(error) {
   console.log("Mongoose Error: ", error);
 });
-
 // Once logged in to the db through mongoose, log a success message
 db.once("open", function() {
   console.log("Mongoose connection successful.");
 });
 
-// Stormpath needs to be the final initialized middleware before custom routes begin
-var strategy = new StormpathStrategy();
-passport.use(strategy);
-passport.serializeUser(strategy.serializeUser);
-passport.deserializeUser(strategy.deserializeUser);
-
-app.use(favicon());
-app.use(logger('dev'));
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded());
-app.use(cookieParser());
-app.use(require('stylus').middleware(path.join(__dirname, 'public')));
-app.use(express.static(path.join(__dirname, 'public')));
-
-app.use(session({
-  secret: process.env.EXPRESS_SECRET,
-  key: 'sid',
-  cookie: { secure: false },
+// Stormpath has to be the final initialized middleware
+app.use(stormpath.init(app, {
+  application: {
+    href: process.env.STORMPATH_APPLICATION_HREF
+  },
+  website: true,
+  web: {
+    login: {
+      nextUri: '/public'
+    },
+    logout: {
+      enabled: true,
+      nextUri: '/login'
+    }
+  }
 }));
-app.use(passport.initialize());
-app.use(passport.session());
-app.use(flash());
-
-var index_routes = require('./routes/index');
-var auth_routes = require('./routes/auth');
-app.use('/', index_routes);
-app.use('/', auth_routes);
-
-var port = process.env.PORT || 3000;
-app.listen(port, function() {
-  console.log("App running on port "+ port);
-});
 
 app.on('stormpath.ready', function() {
-  app.listen(3000);
+  console.log("Stormpath Ready.");
+    app.listen(process.env.PORT || PORT, function () {
+      console.log("Listening on port ", PORT);
+    });
 });
 
-/////  Routes  \\\\\
-/////  ======  \\\\\
-/*/////
-  The scrape will run on server start and hitting "/",
-  pushing all new articles to the db with a "source" field
-  associated to where each article was sourced.
-/////*/
+////////////////////////////
+// Holding on to until Stormpath is figured out.....
 
+// var strategy = new StormpathStrategy();
+// passport.use(strategy);
+// passport.serializeUser(strategy.serializeUser);
+// passport.deserializeUser(strategy.deserializeUser);
 
+// app.use(require('stylus').middleware(path.join(__dirname, 'public')));
+// app.use(express.static(path.join(__dirname, 'public')));
 
-/* alt handlebars instantiation
-//////////////
-app.engine('handlebars', exphbs({defaultLayout: 'main', extname: '.handlebars'}));
-app.set('view engine', 'handlebars');
-*/
-
-/* Moving toward a single page for all results
-//// After talking with intended users, this is what they want
-// Above Top Secret ajax
-app.get("/abovetopsecret", function(req, res){
-  Article.find({"source":ats}, function(err, found){
-    if(err) {
-      console.log(err);
-    } else {
-      console.log(found);
-      res.json(found);
-      // res.send(index.html);
-    }
-  })
-});
-// Cryptomundo ajax
-app.get("/cryptomundo", function(req, res){
-  Article.find({"source":cm}, function(err, found){
-    if(err) {
-      console.log(err);
-    } else {
-      console.log(found);
-      res.json(found);
-      // res.send(index.html);
-    }
-  })
-});
-// Paranormal News ajax
-app.get("/paranormalnews", function(req, res){
-  Article.find({"source":pn}, function(err, found){
-    if(err) {
-      console.log(err);
-    } else {
-      console.log(found);
-      res.json(found);
-      // res.send(index.html);
-    }
-  })
-});
-// David Icke ajax
-app.get("/davidicke", function(req, res){
-  Article.find({"source":di}, function(err, found){
-    if(err) {
-      console.log(err);
-    } else {
-      console.log(found);
-      res.json(found);
-      // res.send(index.html);
-    }
-  })
-});
-*/
+// app.use(session({
+//   secret: process.env.EXPRESS_SECRET,
+//   key: 'sid',
+//   cookie: { secure: false },
+// }));
+// app.use(passport.initialize());
+// app.use(passport.session());
+// app.use(flash());
