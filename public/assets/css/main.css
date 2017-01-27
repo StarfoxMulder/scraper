@@ -147,3 +147,8 @@ textarea {
 #articleContainer{
   padding-top: 1%;
 }
+
+/*////// Login Page ///////*/
+#helperText{
+  text-align: center;
+}

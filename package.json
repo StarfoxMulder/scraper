@@ -34,6 +34,7 @@
   },
   "homepage": "https://github.com/StarfoxMulder/scraper#readme",
   "dependencies": {
+    "bcryptjs": "^2.4.0",
     "bluebird": "^3.4.6",
     "body-parser": "^1.15.2",
     "cheerio": "^0.22.0",
@@ -47,6 +48,8 @@
     "mongoose": "^4.7.1",
     "morgan": "^1.7.0",
     "passport": "^0.3.2",
+    "passport-local": "^1.0.0",
+    "passport-local-mongoose": "^4.0.0",
     "passport-stormpath": "^0.2.4",
     "path": "^0.12.7",
     "request": "^2.79.0",

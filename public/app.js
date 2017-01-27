@@ -1,25 +1,25 @@
 
 var currentArticle = "placeHolder";
 
-$(document).on("click", "#submitNewUser", function() {
-  newUser = $(this).data();
-  console.log("This is the data assocaited wtih #submitNewUser: \n"+newUser);
+// $(document).on("click", "#submitNewUser", function() {
+//   newUser = $(this).data();
+//   console.log("This is the data assocaited wtih #submitNewUser: \n"+newUser);
 
-  $.ajax({
-    method: "POST",
-    url: "/register",
-    data: {
-      username: $("#loginForm").children("div").children("input").attr('id', 'userName').val(),
-      email: $("#loginForm").children("div").children("input").attr('id', 'email').val(),
-      password: $("#loginForm").children("div").children("input").attr('id', 'password').val()
-    }
-  })
-  .done(function(data) {
-    console.log(data);
-    // res.redirect("/profile/"+data._id);
-  });
-  return false;
-});
+//   $.ajax({
+//     method: "POST",
+//     url: "/register",
+//     data: {
+//       userName: $("#loginForm").children("div").children("input").attr('id', 'userName').val(),
+//       email: $("#loginForm").children("div").children("input").attr('id', 'email').val(),
+//       password: $("#loginForm").children("div").children("input").attr('id', 'password').val()
+//     }
+//   })
+//   .done(function(data) {
+//     console.log(data);
+//     // res.redirect("/profile/"+data._id);
+//   });
+//   return false;
+// });
 
 // $(document).on("click", "#submitLogin", function() {
 //   newUser = $(this).data();

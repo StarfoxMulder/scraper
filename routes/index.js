@@ -1,11 +1,14 @@
 var express = require("express");
 var router = express.Router();
-var stormpath = require('express-stormpath')
+var app = express();
 var Note = require("../models/Note.js");
 var Article = require("../models/Article.js");
 var User = require("../models/User.js");
+var passport = require('passport');
+var LocalStrategy= require("passport-local");
+var passportLocalMongoose = require("passport-local-mongoose");
+var session = require('express-session');
 var logger = require("morgan");
-var mongoose = require("mongoose");
 var request = require("request");
 var cheerio = require("cheerio");
 var vc = "Vigilant Citizen";
@@ -32,6 +35,9 @@ router.get("/register", function(req, res){
 });
 
 router.post("/register", function(req, res) {
+  console.log("req.body.userName == "+req.body.userName);
+  console.log("req.body.email == "+req.body.email);
+  console.log("req.body.password == "+req.body.password);
   User.register(new User({
     userName: req.body.userName,
     email: req.body.email,
@@ -49,6 +55,10 @@ router.post("/register", function(req, res) {
   })
 });
 
+router.get("/login", function(req,res) {
+  res.render("login");
+});
+
 router.post("/login", passport.authenticate("local", {
     failureRedirect: "/"
 }), function(req, res) {
@@ -62,7 +72,7 @@ router.post("/login", passport.authenticate("local", {
       res.redirect("/");
     }
     function reRoute(req,res){
-      res.redirect("/profile);
+      res.redirect("/profile");
     }
     function autoRedirect(req,res,next){
       if(req.isAuthenticated()){
@@ -95,7 +105,6 @@ router.get('/home', function(req, res){
 
 router.get("/profile", function(req, res){
 
-  res.locals.user.email
   Article.find().sort({"saved": -1}).exec( function(err, found){
     if(err) {
     } else {
