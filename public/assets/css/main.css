@@ -122,6 +122,11 @@ textarea {
   background-color: rgba(204, 192, 148, .3);
 }
 
+/*///// Registration Page /////*/
+#registration {
+
+}
+
 /*///// Profile Page //////*/
 #topJumbotrons {
   display: flex;
@@ -148,7 +153,22 @@ textarea {
   padding-top: 1%;
 }
 
+/*///// Error Page //////*/
+#error {
+
+}
+/*////// Home Page //////*/
+#home {
+
+}
+/*////// Index Page //////*/
+#index {
+
+}
 /*////// Login Page ///////*/
+#login {
+
+}
 #helperText{
   text-align: center;
 }

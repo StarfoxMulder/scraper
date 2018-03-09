@@ -54,6 +54,9 @@
     "path": "^0.12.7",
     "request": "^2.79.0",
     "static-favicon": "^2.0.0-alpha",
-    "stormpath": "^0.19.1"
+    "stormpath": "^0.19.1",
+    "vue": "^2.1.10",
+    "vue-resource": "^1.0.3",
+    "vue-router": "^2.2.0"
   }
 }
